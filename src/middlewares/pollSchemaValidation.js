@@ -18,12 +18,12 @@ export function pollSchemaValidation(req, res, next){
     });
 
     if(error){
-    const errors = error.details;
-    const errorsTXT = errors.map(detail => detail.message);
-    res.status(422).send(errorsTXT);
+        const errors = error.details;
+        const errorsTXT = errors.map(detail => detail.message);
+        res.status(422).send(errorsTXT);
+    }else{
+        res.locals.poll = pollObject;
     }
-
-    res.locals.poll = pollObject;
 
     next();
 }

@@ -10,3 +10,14 @@ export async function createPoll(req, res){
         res.sendStatus(500);
     }
 }
+
+export async function getAllPolls(req, res){
+    try{
+        console.log('a');
+        const allPolls = await pollCollection.find({}).toArray();
+        res.send(allPolls);
+    }catch(err){
+        console.log(err);
+        res.sendStatus(500);
+    }
+}

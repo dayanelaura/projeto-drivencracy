@@ -13,7 +13,6 @@ export async function createPoll(req, res){
 
 export async function getAllPolls(req, res){
     try{
-        console.log('a');
         const allPolls = await pollCollection.find({}).toArray();
         res.send(allPolls);
     }catch(err){

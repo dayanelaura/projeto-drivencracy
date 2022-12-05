@@ -25,11 +25,15 @@ export async function choiceSchemaValidation(req, res, next){
     const { expireAt } = isThereId;
     const now = new Date();
     const date = new Date(expireAt);
-
     if(now>date)
-        res.sendStatus(403);
-    else
-        res.locals.choice = choice;
+        return res.sendStatus(403);
+
+    const choiceObject = {
+        title,
+        pollId: ObjectId(pollId)
+    };
+
+    res.locals.choice = choiceObject;
 
     next();
 }

@@ -1,12 +1,16 @@
-import { ObjectId } from "mongodb";
 import { choicesCollection, pollCollection } from "../database/db.js";
 import { choiceSchema } from "../models/choiceModel.js";
+import { idValidation } from "./objectIdValidation.js";
 
 export async function choiceSchemaValidation(req, res, next){
     const { title, pollId } = req.body;
     const choice = req.body;
 
-    const isThereId = await pollCollection.findOne({ _id: ObjectId(pollId) });
+    const id = await idValidation(pollId);
+    if(!id)
+        return res.sendStatus(422);
+
+    const isThereId = await pollCollection.findOne({ _id: id });
     if(!isThereId)
         return res.sendStatus(404);
 
@@ -29,10 +33,9 @@ export async function choiceSchemaValidation(req, res, next){
 
     const choiceObject = {
         title,
-        pollId: ObjectId(pollId)
+        pollId: id
     };
 
     res.locals.choice = choiceObject;
-
     next();
 }

@@ -1,10 +1,16 @@
 import { ObjectId } from "mongodb";
 import { choicesCollection, pollCollection } from "../database/db.js";
 import dayjs from "dayjs";
+import { idValidation } from "./objectIdValidation.js";
 
 export async function voteValidation(req, res, next){
-    const id = req.params.id;
-    const isThereChoice = await choicesCollection.findOne({ _id: ObjectId(id) });
+    const choiceId = req.params.id;
+
+    const id = await idValidation(choiceId);
+    if(!id)
+        return res.sendStatus(422);
+
+    const isThereChoice = await choicesCollection.findOne({ _id: id });
     
     if(!isThereChoice)
         return res.sendStatus(404);

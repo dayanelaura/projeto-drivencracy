@@ -22,9 +22,8 @@ export async function showResult(req, res){
             if(count > count0){
                 count0 = count;
                 idResult = choiceId;
-            }/* else if(count === count0 && count0 !== 0){
-                idResult += " "+choiceId;
-            } */   //pensando em caso de empate//
+            }
+            
             count=0;
         });
 

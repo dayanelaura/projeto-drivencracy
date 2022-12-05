@@ -11,7 +11,6 @@ export async function choiceSchemaValidation(req, res, next){
         return res.sendStatus(404);
 
     const isThereTitle = await choicesCollection.findOne({ title: title });
-    //eu acho que é na mesma enquete, daí tenho que procurar pelo _id e depoiis modificar;
     if(isThereTitle)
         return res.sendStatus(409);
 

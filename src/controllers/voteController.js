@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { votesCollection } from "../database/db.js";
 
 export async function sendVote(req, res){
@@ -7,7 +8,7 @@ export async function sendVote(req, res){
 
         const vote = { 
             createdAt, 
-            choiceId, 
+            choiceId: ObjectId(choiceId), 
         }
         
         await votesCollection.insertOne(vote);

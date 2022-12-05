@@ -17,7 +17,7 @@ export async function voteValidation(req, res, next){
     const date = new Date(expireAt);    
 
     if(now > date)
-        res.sendStatus(403);
+        return res.sendStatus(403);
 
     const createdAt = dayjs().format('YYYY-MM-DD HH:mm');
 
